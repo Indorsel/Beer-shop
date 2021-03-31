@@ -1,0 +1,21 @@
+#main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+  height: 100%;
+}
+
+#main h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 5% 0;
+}
+
+.items_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 10%;
+}
