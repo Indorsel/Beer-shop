@@ -2,53 +2,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 98%;
+  width: 100%;
   padding: 1%;
   background: rgb(0 77 191);
 }
 
-#header div {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-}
-
-
-#header input {
-  width: 30%;
-  min-width: 50px;
-  max-width: 300px;
-  height: 24px;
-  font-size: 1.2rem;
-  margin-right: 1%;
-  padding: 2px 5px;
-  border: none;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  outline: none;
-}
-
-#header button {
-  font-size: 1rem;
-  font-weight: 700;
-  margin: 0 10px;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  vertical-align: middle;
-  box-shadow: 0 0 10px rgb(247 255 0);
-  transition: all 1s;
-}
-
 #sign_up_btn {
-  min-width: 80px;
+  margin-left: 10%;
 }
 
-#header button:hover {
-  cursor: pointer;
-  background: rgb(213, 216, 214);
-  box-shadow: 0 0 30px rgb(247 255 0);
+.ant-space-vertical .ant-input {
+  width: 300px;
+  margin-right: 10px;
 }
 
-#header button:focus {
-  outline: none;
+.buttons_wrapper {
+  width: 160px;
+  display: flex;
+  justify-content: space-between;
 }

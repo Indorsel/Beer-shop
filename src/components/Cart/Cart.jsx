@@ -1,6 +1,7 @@
 import React from 'react'
 import './index.css'
 import { NavLink } from 'react-router-dom';
+import CartItem from '../CartItem/CartItem';
 
 export default function Cart() {
   return (
@@ -11,7 +12,10 @@ export default function Cart() {
         </div>
       </NavLink>
       <h3>Cart</h3>
-      <div id='cart'></div> 
+      <div id='cart'>
+        <CartItem />  
+        {/* <CartItem item={} key={} />   */}
+      </div> 
     </div>
   )
 }

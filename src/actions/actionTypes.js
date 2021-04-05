@@ -1,0 +1,3 @@
+export const SET_BEER_NAME = 'SET_BEER_NAME'
+export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+export const SET_FILTER = 'SET_FILTER'

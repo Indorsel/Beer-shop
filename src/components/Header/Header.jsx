@@ -1,27 +1,56 @@
-import React
-// , { useState } 
-from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom';
+import { Button, Input, Space, Modal } from 'antd';
 import './index.css'
+import RegistrationForm from '../RegistrationForm/RegistrationForm';
 
 export default function Header() {
-  // const [state, setState] = useState(false);
   function isRegistrationForm() {
     console.log('Opening the registration form')
-    // let formReg = document.querySelector('.sign_up')
-    // let display = formReg.style.display
-    // display === '' ? display = 'flex' : display = 'none'
   }
+
+  const [visible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setTimeout(() => {
+      setIsModalVisible(false);
+    }, 1000);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <div id='header'>
-      <input type="text" placeholder="Search"/>
-      <div>
+      <Space direction="vertical">
+        <Input placeholder="Type name of beer" />
+      </Space>
+      <div className='buttons_wrapper'>
         <NavLink to='/cart'>
-          <button id='cart_btn'>Cart</button>
+          <Button id='cart_btn' onClick={isRegistrationForm}>Cart</Button>
         </NavLink>
-        <button id='sign_up_btn' onClick={isRegistrationForm}>Sign up</button>
+
+        <Button id='sign_up_btn' type="primary" onClick={showModal}>Sign up</Button>
       </div>
+      
+      <Modal
+        visible={visible}
+        title="Registration"
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={[
+          <Button key="submit" type="primary" htmlType="submit" onClick={handleOk}>
+            Register
+          </Button>,
+        ]}
+      >
+        <RegistrationForm />
+      </Modal>
     </div>
   )
 }

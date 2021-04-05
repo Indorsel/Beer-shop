@@ -11,7 +11,15 @@
 #main h3 {
   font-size: 2rem;
   font-weight: bold;
-  margin: 5% 0;
+  margin-top: 5%;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  margin: 3% auto 1%;
 }
 
 .items_wrapper {
