@@ -43,12 +43,13 @@ const tailFormItemLayout = {
   },
 };
 
-export default function RegistrationForm() {
+export default function RegistrationForm({ isVisible }) {
 
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
+    isVisible()
   };
 
   return (
@@ -63,7 +64,17 @@ export default function RegistrationForm() {
       <Form.Item
         name="firstname"
         label="First name"
-        rules={[{ required: true, message: 'Please input your first name!', whitespace: true }]}
+        rules={[
+          {
+            required: true,
+            message: 'Please input your first name!',
+            whitespace: true,
+          },
+          {
+            pattern: '^[a-zA-Z]{1,20}$',
+            message: 'Please use only latin letters!',
+          }
+        ]}
       >
         <Input />
       </Form.Item>
@@ -71,7 +82,17 @@ export default function RegistrationForm() {
       <Form.Item
         name="secondname"
         label="Second name"
-        rules={[{ required: true, message: 'Please input your second name!', whitespace: true }]}
+        rules={[
+          {
+            required: true,
+            message: 'Please input your first name!',
+            whitespace: true,
+          },
+          {
+            pattern: '^[a-zA-Z]{1,20}$',
+            message: 'Please use only latin letters!',
+          }
+        ]}
       >
         <Input />
       </Form.Item>
@@ -88,6 +109,14 @@ export default function RegistrationForm() {
             required: true,
             message: 'Please input your password!',
           },
+          () => ({
+            validator(_, value) {
+              if (!value || value.length >= 6) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error('Please input 6 or more symbols in your password'));
+            },
+          }),
         ]}
         hasFeedback
       >
@@ -142,37 +171,3 @@ export default function RegistrationForm() {
     </Form>
   );
 };
-
-
-  // return (
-    // <div className="wrapper_registration">
-    //   <div className='sign_up'>
-    //     <p>Registration</p>
-    //     <p>Create your account</p>
-    //     <form onSubmit={openForm} >
-    //       <input type="text" name="First Name" required id="first_name" pattern="[A-Za-z]{1,}"
-    //           title="Please use only Latin letters" placeholder='First Name' />
-    //       <input type="text" name="Last Name" required id="last_name" pattern="[A-Za-z]{1,}"
-    //           title="Please use only Latin letters" placeholder='Last Name' />
-    //       <br/>
-    //       <input type="text" name="Otchestvo" id="otchestvo" placeholder='Otchestvo' />
-    //       <br/>
-    //       <label>Date of Birth</label>
-    //       <input type="date" name="Birth Date" required min="1900-01-01" max="2021-04-09" id="date" />
-    //       <br/>
-    //       <input type="email" name="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-    //           title="Invalid email!" id="email" placeholder='Email' />
-    //       <br/>
-    //       <input type="password" name="Password" required id="password" pattern=".{6,}"
-    //             title="6 or more characters" placeholder='Password' />
-    //       <br/>
-    //       <input type="password" name="Check password" required id="check_password" placeholder='Repeat password' />
-    //       <br/>
-    //       <input type="submit" value="Register now" />
-    //     </form>
-    //   </div>
-//     // </div>
-
-
-//   )
-// }

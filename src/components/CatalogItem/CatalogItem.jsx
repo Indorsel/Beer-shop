@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch
+  // , useSelector 
+} from 'react-redux'
 import { setCartItems } from '../../actions/setCartItems';
 import './index.css'
 
 
 export default function CatalogItem({ item }) {
   const dispatch = useDispatch()
-  const state = useSelector(state => state.catalogItem.cartItems)
+  // const state = useSelector(state => state.catalogItem.cartItems)
 
   const { image_url, id, name, abv, ibu, target_fg, target_og, ebc, srm, ph, attenuation_level } = item
  
@@ -19,23 +21,24 @@ export default function CatalogItem({ item }) {
   }, [])
 
   useEffect(() => {
-    console.log('This is localState', cartItems)
-    console.log('This is Redux state: ', state);
+    // console.log('This is localState', cartItems)
+    // console.log('This is Redux state: ', state);
+    // console.log('checked: ', checked);
+    console.log('cartItems is ', cartItems);
     localStorage.setItem('cartItems', JSON.stringify(cartItems))
   }, [cartItems])
 
   const addItemInCart = ({target}) => {
     // debugger
     isChecked(true)
-    console.log('checked: ', checked);
     setCartItem([...cartItems, {
       id: id,
       name: name,
-      image: image_url,
+      image_url: image_url,
     }])
-    console.log(cartItems);
     dispatch(setCartItems(cartItems))
     target.checked = true
+    console.log(target);
     console.log('target checked: ', target.checked)
   }
 
@@ -50,12 +53,13 @@ export default function CatalogItem({ item }) {
     dispatch(setCartItems(cartItems))
     console.log(cartItems);
     target.checked = false
+    console.log(target);
     console.log('target checked: ', target.checked)
   }
 
 
   return (
-    <div className='wrapper_item'>
+    <div className='wrapper_item' key={id}>
       <img src={image_url} alt="" />
       <div className="description">
         <h4>{name}</h4>

@@ -48,13 +48,9 @@ export default function Header() {
         title="Registration"
         onOk={handleOk}
         onCancel={handleCancel}
-        footer={[
-          <Button key="submit" type="primary" htmlType="submit" onClick={handleOk}>
-            Register
-          </Button>,
-        ]}
+        footer={null}
       >
-        <RegistrationForm />
+        <RegistrationForm isVisible={() => setIsModalVisible(false)} />
       </Modal>
     </div>
   )

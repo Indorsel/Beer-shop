@@ -9,6 +9,7 @@ import { setApiData } from '../../actions/setApiData'
 import { catalogSort } from '../../utils/catalogSort'
 
 
+
 export default function Main() {
   const dispatch = useDispatch()
   const state = useSelector(state => state)
@@ -32,7 +33,7 @@ export default function Main() {
     dispatch(setApiData(sortedCatalog))
   }, [apiData])
 
-  console.log(state.main.apiData);
+  // console.log(state.main.apiData);
   const catalog = state.main.apiData.slice((state.pagination.currentPage - 1) * 10, state.pagination.currentPage * 10)
 
   return (

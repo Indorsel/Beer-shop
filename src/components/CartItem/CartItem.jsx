@@ -3,9 +3,9 @@ import './index.css'
 
 
 export default function CartItem(item) {
-  const { image, name, id } = item.item
+  const { image_url, name, id } = item.item
   useEffect(() => {
-    console.log(image, name);
+    // console.log(image_url, name);
   }, [])
 
   const removeItemInCart = () => {
@@ -15,7 +15,7 @@ export default function CartItem(item) {
   return (
     <div className="cart_wrapper">
       <div className='cart_item'>
-        <img src={image} alt="" />
+        <img src={image_url} alt="" />
         <div className="description">
           <h4>{name}Name</h4>
         </div>
