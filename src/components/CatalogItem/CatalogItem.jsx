@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch
-  // , useSelector 
-} from 'react-redux'
-import { setCartItems } from '../../actions/setCartItems';
+import React, { 
+  // useEffect,
+   useState } from 'react'
+// import { 
+//   // useDispatch,
+//    useSelector 
+// } from 'react-redux'
+// import { setCartItems } from '../../actions/setCartItems';
 import './index.css'
 
 
 export default function CatalogItem({ item }) {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   // const state = useSelector(state => state.catalogItem.cartItems)
 
   const { image_url, id, name, abv, ibu, target_fg, target_og, ebc, srm, ph, attenuation_level } = item
@@ -15,48 +18,43 @@ export default function CatalogItem({ item }) {
   const [checked, isChecked] = useState(false)
   const [cartItems, setCartItem] = useState([])
 
-  useEffect(() => {
-    const raw = localStorage.getItem('cartItems') || []
-    setCartItem(JSON.parse(raw))
-  }, [])
+  // useEffect(() => {
+  //   const raw = localStorage.getItem('cartItems') || []
+  //   setCartItem(JSON.parse(raw))
+  // }, [])
 
-  useEffect(() => {
-    // console.log('This is localState', cartItems)
-    // console.log('This is Redux state: ', state);
-    // console.log('checked: ', checked);
-    console.log('cartItems is ', cartItems);
-    localStorage.setItem('cartItems', JSON.stringify(cartItems))
-  }, [cartItems])
+  // useEffect(() => {
+  //   localStorage.setItem('cartItems', JSON.stringify(cartItems))
+  // }, [cartItems])
 
   const addItemInCart = ({target}) => {
-    // debugger
+    debugger
     isChecked(true)
-    setCartItem([...cartItems, {
-      id: id,
-      name: name,
-      image_url: image_url,
-    }])
-    dispatch(setCartItems(cartItems))
-    target.checked = true
-    console.log(target);
-    console.log('target checked: ', target.checked)
+    console.log(`${id}: ${target.checked}`)
+    let cart = cartItems.push(id)
+    setCartItem(cart)
+    console.log(cartItems);
+    // if(target.id !== id) {
+    //   isChecked(true)
+    //   setCartItem([...cartItems, {
+    //     id: id,
+    //     name: name,
+    //     image_url: image_url,
+    //   }])
+    //   dispatch(setCartItems(cartItems))
+    // }
   }
 
 
   const removeItemInCart = ({target}) => {
     isChecked(false)
-    console.log('checked: ', checked);
-    cartItems.forEach((el, i) => {
-      if(el.id === target.id) cartItems.splice(i, 1)
-    })
-    setCartItem(cartItems)
-    dispatch(setCartItems(cartItems))
-    console.log(cartItems);
-    target.checked = false
-    console.log(target);
-    console.log('target checked: ', target.checked)
+    console.log(`${id}: ${target.checked}`);
+    // cartItems.forEach((el, i) => {
+    //   if(el.id === target.id) cartItems.splice(i, 1)
+    // })
+    // setCartItem(cartItems)
+    // dispatch(setCartItems(cartItems))
   }
-
 
   return (
     <div className='wrapper_item' key={id}>
@@ -72,7 +70,7 @@ export default function CatalogItem({ item }) {
         <p><b>Attenuation level: </b>{attenuation_level}</p>
         <div className='checkbox_wrapper'>
           <input type="checkbox" name="Add to cart" id="add_to_cart" 
-            onChange={checked === false ? addItemInCart : removeItemInCart} 
+            onChange={checked === false ? removeItemInCart : addItemInCart} 
           />
           <label htmlFor="add_to_cart">Add to cart</label>
         </div>
