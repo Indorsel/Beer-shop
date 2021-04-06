@@ -25,19 +25,20 @@
 
 .description p {
   margin-left: 0;
+  margin-bottom: 0;
 }
 
 .description h4 {
   font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1rem;
   margin-bottom: 10px;
 }
 
 .checkbox_wrapper {
   display: flex;
   flex-direction: row;
-  /* justify-content:; */
   align-items: center;
-  margin-top: 10%;
 }
 
 .checkbox_wrapper label {

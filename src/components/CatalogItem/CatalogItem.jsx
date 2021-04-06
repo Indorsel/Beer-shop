@@ -1,10 +1,59 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCartItems } from '../../actions/setCartItems';
 import './index.css'
 
 
 export default function CatalogItem({ item }) {
-  console.log(item)
-  const { image_url, name, abv, ibu, target_fg, target_og, ebc, srm, ph, attenuation_level } = item
+  const dispatch = useDispatch()
+  const state = useSelector(state => state.catalogItem.cartItems)
+
+  const { image_url, id, name, abv, ibu, target_fg, target_og, ebc, srm, ph, attenuation_level } = item
+ 
+  const [checked, isChecked] = useState(false)
+  const [cartItems, setCartItem] = useState([])
+
+  useEffect(() => {
+    const raw = localStorage.getItem('cartItems') || []
+    setCartItem(JSON.parse(raw))
+  }, [])
+
+  useEffect(() => {
+    console.log('This is localState', cartItems)
+    console.log('This is Redux state: ', state);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems))
+  }, [cartItems])
+
+  const addItemInCart = ({target}) => {
+    // debugger
+    isChecked(true)
+    console.log('checked: ', checked);
+    setCartItem([...cartItems, {
+      id: id,
+      name: name,
+      image: image_url,
+    }])
+    console.log(cartItems);
+    dispatch(setCartItems(cartItems))
+    target.checked = true
+    console.log('target checked: ', target.checked)
+  }
+
+
+  const removeItemInCart = ({target}) => {
+    isChecked(false)
+    console.log('checked: ', checked);
+    cartItems.forEach((el, i) => {
+      if(el.id === target.id) cartItems.splice(i, 1)
+    })
+    setCartItem(cartItems)
+    dispatch(setCartItems(cartItems))
+    console.log(cartItems);
+    target.checked = false
+    console.log('target checked: ', target.checked)
+  }
+
+
   return (
     <div className='wrapper_item'>
       <img src={image_url} alt="" />
@@ -13,12 +62,14 @@ export default function CatalogItem({ item }) {
         <p><b>ABV: </b>{abv}</p>
         <p><b>IBU: </b>{ibu}</p>
         <p><b>FG/OG: </b>{target_fg}/{target_og}</p>
-        <p><b>EBC: </b>{ebc}</p>
-        <p><b>SRM: </b>{srm}</p>
+        <p><b>EBC: </b>{ebc === null ? 0 : ebc}</p>
+        <p><b>SRM: </b>{srm === null ? 0 : srm}</p>
         <p><b>Ph: </b>{ph}</p>
         <p><b>Attenuation level: </b>{attenuation_level}</p>
         <div className='checkbox_wrapper'>
-          <input type="checkbox" name="Add to cart" id="add_to_cart" />
+          <input type="checkbox" name="Add to cart" id="add_to_cart" 
+            onChange={checked === false ? addItemInCart : removeItemInCart} 
+          />
           <label htmlFor="add_to_cart">Add to cart</label>
         </div>
       </div>

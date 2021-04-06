@@ -1,17 +1,15 @@
-// import { SET_NUMBER_OF_PAGES } from "../actions/actionTypes"
+import { SET_API_DATA } from "../actions/actionTypes"
 
-// const initialState = {
-//   numberOfPages: 0,
-// }
+const initialState = {
+  apiData: [],
+}
 
-// export function MainReducer(state = initialState, action) {
-//   switch(action.type) {
-//     case SET_NUMBER_OF_PAGES:
-//       return { ...state, numberOfPages: action.payload.numberOfPages }
+export function MainReducer(state = initialState, action) {
+  switch(action.type) {
+    case SET_API_DATA:
+      return { ...state, apiData: action.payload }
 
-//     default:
-//       return state
-//   }
-// }
-
-// // export const setPages = (payload) => ({type: SET_NUMBER_OF_PAGES, payload})
+    default:
+      return state
+  }
+}

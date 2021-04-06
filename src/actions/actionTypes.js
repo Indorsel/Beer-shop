@@ -1,3 +1,5 @@
+export const SET_API_DATA = 'SET_API_DATA'
 export const SET_BEER_NAME = 'SET_BEER_NAME'
+export const SET_CART_ITEMS = 'SET_CART_ITEMS'
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 export const SET_FILTER = 'SET_FILTER'

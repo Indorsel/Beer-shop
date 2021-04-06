@@ -2,41 +2,53 @@ import React, { useEffect, useState } from 'react'
 import './index.css'
 import axios from '../../utils/API'
 import CatalogItem from '../CatalogItem/CatalogItem'
-import Pagination from '../Pagination/Pagination'
+import PaginationWrapper from '../Pagination/PaginationWrapper'
 import Filter from '../Filter/Filter'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setApiData } from '../../actions/setApiData'
+import { catalogSort } from '../../utils/catalogSort'
 
 
 export default function Main() {
+  const dispatch = useDispatch()
   const state = useSelector(state => state)
-  console.log(state.filter)
 
-  const [apiData, setApiData] = useState([])
+  const [apiData, setData] = useState([])
 
   useEffect(() => {
     async function fetchData() {
-      const request = await axios.get(`?page=${state.pagination.currentPage}&per_page=10`)
-      setApiData(request.data)
+      const request = state.header.beerName === '' ? await axios.get('beers?per_page=80') :
+        await axios.get(`beers?per_page=80&beer_name=${state.header.beerName}`)
+      setData(request.data)
+      const sortedCatalog = catalogSort(apiData, state.filter.filter)
+      dispatch(setApiData(sortedCatalog))
     }
     fetchData()
-  }, [state])
+  }, [state.filter.filter, state.header.beerName, state.catalogItem.cartItems])
 
-  apiData === undefined ? console.log('Пустой стейт') : console.log(apiData)
+
+  useEffect(() => {
+    const sortedCatalog = catalogSort(apiData, state.filter.filter)
+    dispatch(setApiData(sortedCatalog))
+  }, [apiData])
+
+  console.log(state.main.apiData);
+  const catalog = state.main.apiData.slice((state.pagination.currentPage - 1) * 10, state.pagination.currentPage * 10)
 
   return (
     <div id='main'>
       <h3>Catalog</h3>
       <div className="filters">
         <Filter />
-        <Pagination />
       </div>
       <div className="items_wrapper">
         {
-          apiData.length !== 0 ? apiData.map(el => (
-            <CatalogItem item={el} key={el.id} />
-          )) : <div style={{fontWeight:'700', fontSize: '2rem'}}>Catalog has no items now</div>
+          apiData?.length !== 0 ? catalog.map(el => (
+              <CatalogItem item={el} key={el.id} />
+            )) : <div style={{fontWeight:'700', fontSize: '2rem'}}>Catalog has no items now</div>
         }
       </div>
+      <PaginationWrapper />
     </div>
   )
 }
