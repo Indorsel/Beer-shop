@@ -9,8 +9,17 @@ export default function CatalogItem({ item }) {
   const state = useSelector(state => state.catalogItem.cartItems)
 
   const { image_url, id, name, abv, ibu, target_fg, target_og, ebc, srm, ph, attenuation_level } = item
- 
-  const [checked, isChecked] = useState(false)
+  
+  const isCheckboxChecked = () => {
+    const check = state.find(el => el.id === id ? 1 : 0) 
+    if (check === undefined) {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  const [checked, isChecked] = useState(isCheckboxChecked())
 
   const addItemInCart = () => {
     isChecked(true)
@@ -30,6 +39,8 @@ export default function CatalogItem({ item }) {
     dispatch(setCartItems(newState))
   }
 
+
+
   return (
     <div className='wrapper_item' key={id}>
       <img src={ image_url ? image_url : 'https://clck.ru/U9RrJ' } alt="" />
@@ -44,6 +55,7 @@ export default function CatalogItem({ item }) {
         <p><b>Attenuation level: </b>{attenuation_level}</p>
         <div className='checkbox_wrapper'>
           <input type="checkbox" name="Add to cart" id={id} 
+            checked={ isCheckboxChecked() }
             onChange={ checked === false ? addItemInCart : removeItemInCart } 
           />
           <label htmlFor="add_to_cart">Add to cart</label>

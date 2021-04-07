@@ -20,7 +20,7 @@ export default function CartItem(item) {
       <div className='cart_item'>
         <img src={image_url} alt="" />
         <div className="description">
-          <h4>{name}Name</h4>
+          <h4>{name}</h4>
         </div>
         <div className="cart_button">
           <button onClick={removeItemInCart} id={id}>Remove item</button>

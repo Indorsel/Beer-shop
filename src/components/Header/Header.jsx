@@ -3,12 +3,14 @@ import { NavLink } from 'react-router-dom';
 import { Button, Input, Space, Modal } from 'antd';
 import './index.css'
 import RegistrationForm from '../RegistrationForm/RegistrationForm';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setBeerName } from '../../actions/setBeerName';
+import { setCurrentPage } from '../../actions/setCurrentPage';
 
 export default function Header() {
 
   const dispatch = useDispatch()
+  const state = useSelector(state => state.pagination.currentPage)
 
   const [visible, setIsModalVisible] = useState(false);
 
@@ -27,7 +29,8 @@ export default function Header() {
   };
 
   const changeHandler = ({target}) => {
-    dispatch(setBeerName(target.value))
+    if(target.value.trim() !== '' || target.value === '') dispatch(setBeerName(target.value))
+    if (state !== 1 || target.value === '') dispatch(setCurrentPage(1))
   }
 
   return (

@@ -25,14 +25,13 @@ export default function Main() {
       dispatch(setApiData(sortedCatalog))
     }
     fetchData()
-    console.log(state);
-  }, [state.filter.filter, state.header.beerName, state.catalogItem.cartItems])
+  }, [state.filter.filter, state.header.beerName, state.catalogItem.cartItems, state.pagination.currentPage])
 
 
   useEffect(() => {
     const sortedCatalog = catalogSort(apiData, state.filter.filter)
     dispatch(setApiData(sortedCatalog))
-  }, [apiData])
+  }, [apiData, state.header.beerName])
 
   const catalog = state.main.apiData.slice((state.pagination.currentPage - 1) * 10, state.pagination.currentPage * 10)
 
@@ -49,7 +48,7 @@ export default function Main() {
             )) : <div style={{fontWeight:'700', fontSize: '2rem'}}>Catalog has no items now</div>
         }
       </div>
-      <PaginationWrapper />
+      <PaginationWrapper item={state.pagination.currentPage} />
     </div>
   )
 }

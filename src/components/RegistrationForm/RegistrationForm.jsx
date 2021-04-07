@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, DatePicker } from 'antd';
+import './index.css'
 
 
 const config = {
