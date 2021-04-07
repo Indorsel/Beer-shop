@@ -1,64 +1,38 @@
-import React, { 
-  // useEffect,
-   useState } from 'react'
-// import { 
-//   // useDispatch,
-//    useSelector 
-// } from 'react-redux'
-// import { setCartItems } from '../../actions/setCartItems';
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCartItems } from '../../actions/setCartItems';
 import './index.css'
 
 
 export default function CatalogItem({ item }) {
-  // const dispatch = useDispatch()
-  // const state = useSelector(state => state.catalogItem.cartItems)
+  const dispatch = useDispatch()
+  const state = useSelector(state => state.catalogItem.cartItems)
 
   const { image_url, id, name, abv, ibu, target_fg, target_og, ebc, srm, ph, attenuation_level } = item
  
   const [checked, isChecked] = useState(false)
-  const [cartItems, setCartItem] = useState([])
 
-  // useEffect(() => {
-  //   const raw = localStorage.getItem('cartItems') || []
-  //   setCartItem(JSON.parse(raw))
-  // }, [])
-
-  // useEffect(() => {
-  //   localStorage.setItem('cartItems', JSON.stringify(cartItems))
-  // }, [cartItems])
-
-  const addItemInCart = ({target}) => {
-    debugger
+  const addItemInCart = () => {
     isChecked(true)
-    console.log(`${id}: ${target.checked}`)
-    let cart = cartItems.push(id)
-    setCartItem(cart)
-    console.log(cartItems);
-    // if(target.id !== id) {
-    //   isChecked(true)
-    //   setCartItem([...cartItems, {
-    //     id: id,
-    //     name: name,
-    //     image_url: image_url,
-    //   }])
-    //   dispatch(setCartItems(cartItems))
-    // }
+    let check = state.filter(el => el.id !== id ? 0 : 1)
+    if (check.length === 0) {
+      dispatch(setCartItems([...state, {
+        id: id,
+        name: name,
+        image_url: image_url,
+      }]))
+    }
   }
 
-
-  const removeItemInCart = ({target}) => {
+  const removeItemInCart = () => {
     isChecked(false)
-    console.log(`${id}: ${target.checked}`);
-    // cartItems.forEach((el, i) => {
-    //   if(el.id === target.id) cartItems.splice(i, 1)
-    // })
-    // setCartItem(cartItems)
-    // dispatch(setCartItems(cartItems))
+    const newState = state.filter(el => el.id !== id ? el : null)
+    dispatch(setCartItems(newState))
   }
 
   return (
     <div className='wrapper_item' key={id}>
-      <img src={image_url} alt="" />
+      <img src={ image_url ? image_url : 'https://clck.ru/U9RrJ' } alt="" />
       <div className="description">
         <h4>{name}</h4>
         <p><b>ABV: </b>{abv}</p>
@@ -69,8 +43,8 @@ export default function CatalogItem({ item }) {
         <p><b>Ph: </b>{ph}</p>
         <p><b>Attenuation level: </b>{attenuation_level}</p>
         <div className='checkbox_wrapper'>
-          <input type="checkbox" name="Add to cart" id="add_to_cart" 
-            onChange={checked === false ? removeItemInCart : addItemInCart} 
+          <input type="checkbox" name="Add to cart" id={id} 
+            onChange={ checked === false ? addItemInCart : removeItemInCart } 
           />
           <label htmlFor="add_to_cart">Add to cart</label>
         </div>

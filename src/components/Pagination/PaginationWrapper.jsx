@@ -15,8 +15,6 @@ export default function PaginationWrapper() {
     dispatch(setCurrentPage(page))
   };
 
-  // console.log(state.length);
-
   return (
     <div className="pagination" >
       <Pagination showSizeChanger={false} current={current} onChange={onChange} total={state.length ? state.length : 1} />

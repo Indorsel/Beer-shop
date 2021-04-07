@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCartItems } from '../../actions/setCartItems'
 import './index.css'
 
 
 export default function CartItem(item) {
   const { image_url, name, id } = item.item
-  useEffect(() => {
-    // console.log(image_url, name);
-  }, [])
 
-  const removeItemInCart = () => {
-    console.log(id);
+  const dispatch = useDispatch()
+  const state = useSelector(state => state.catalogItem.cartItems)
+
+  const removeItemInCart = ({target}) => {
+    const newState = state.filter(el => el.id !== Number(target.id) ? el : null)
+    dispatch(setCartItems(newState))
   }
 
   return (
@@ -20,7 +23,7 @@ export default function CartItem(item) {
           <h4>{name}Name</h4>
         </div>
         <div className="cart_button">
-          <button onClick={removeItemInCart}>Remove item</button>
+          <button onClick={removeItemInCart} id={id}>Remove item</button>
         </div>
       </div>
     </div>

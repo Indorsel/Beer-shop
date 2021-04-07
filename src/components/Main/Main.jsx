@@ -19,12 +19,13 @@ export default function Main() {
   useEffect(() => {
     async function fetchData() {
       const request = state.header.beerName === '' ? await axios.get('beers?per_page=80') :
-        await axios.get(`beers?per_page=80&beer_name=${state.header.beerName}`)
+        await axios.get(`beers?page=1&per_page=80&beer_name=${state.header.beerName}`)
       setData(request.data)
       const sortedCatalog = catalogSort(apiData, state.filter.filter)
       dispatch(setApiData(sortedCatalog))
     }
     fetchData()
+    console.log(state);
   }, [state.filter.filter, state.header.beerName, state.catalogItem.cartItems])
 
 
@@ -33,7 +34,6 @@ export default function Main() {
     dispatch(setApiData(sortedCatalog))
   }, [apiData])
 
-  // console.log(state.main.apiData);
   const catalog = state.main.apiData.slice((state.pagination.currentPage - 1) * 10, state.pagination.currentPage * 10)
 
   return (

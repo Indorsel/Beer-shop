@@ -7,7 +7,7 @@ import CartItem from '../CartItem/CartItem';
 
 export default function Cart() {
   const state = useSelector(state => state.catalogItem.cartItems)
-  console.log('State in cart component ', state);
+
   return (
     <div className='wrapper'>
       <NavLink to='/main' style={{textDecoration: 'none'}}>
@@ -22,8 +22,6 @@ export default function Cart() {
             <CartItem item={el} key={el.id} />
           ))
         }
-          
-        {/* <CartItem item={} key={} />   */}
       </div> 
     </div>
   )
