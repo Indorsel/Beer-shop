@@ -1,5 +1,5 @@
-import React from 'react';
-import { Form, Input, Button, DatePicker } from 'antd';
+import React from 'react'
+import { Form, Input, Button, DatePicker } from 'antd'
 import './index.css'
 
 
@@ -8,10 +8,10 @@ const config = {
     {
       type: 'object',
       required: true,
-      message: 'Please select time!',
+      message: 'Please select birth date!',
     },
   ],
-};
+}
 
 const formItemLayout = {
   labelCol: {
@@ -30,7 +30,7 @@ const formItemLayout = {
       span: 16,
     },
   },
-};
+}
 const tailFormItemLayout = {
   wrapperCol: {
     xs: {
@@ -42,29 +42,30 @@ const tailFormItemLayout = {
       offset: 8,
     },
   },
-};
+}
 
 export default function RegistrationForm({ isVisible }) {
 
-  const [form] = Form.useForm();
+  const [form] = Form.useForm()
 
   const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+    console.log('Received values of form: ', values)
+    form.resetFields()
     isVisible()
-  };
+  }
 
   return (
     <Form
       {...formItemLayout}
       form={form}
-      name="register"
+      name='register'
       onFinish={onFinish}
       scrollToFirstError
     >
 
       <Form.Item
-        name="firstname"
-        label="First name"
+        name='firstname'
+        label='First name'
         rules={[
           {
             required: true,
@@ -81,12 +82,12 @@ export default function RegistrationForm({ isVisible }) {
       </Form.Item>
 
       <Form.Item
-        name="secondname"
-        label="Second name"
+        name='secondname'
+        label='Second name'
         rules={[
           {
             required: true,
-            message: 'Please input your first name!',
+            message: 'Please input your second name!',
             whitespace: true,
           },
           {
@@ -98,13 +99,13 @@ export default function RegistrationForm({ isVisible }) {
         <Input />
       </Form.Item>
 
-      <Form.Item name="date-picker" label="Birth Date" {...config}>
+      <Form.Item name='date-picker' label='Birth Date' {...config}>
         <DatePicker />
       </Form.Item>
 
       <Form.Item
-        name="password"
-        label="Password"
+        name='password'
+        label='Password'
         rules={[
           {
             required: true,
@@ -113,9 +114,9 @@ export default function RegistrationForm({ isVisible }) {
           () => ({
             validator(_, value) {
               if (!value || value.length >= 6) {
-                return Promise.resolve();
+                return Promise.resolve()
               }
-              return Promise.reject(new Error('Please input 6 or more symbols in your password'));
+              return Promise.reject(new Error('Please input 6 or more symbols in your password'))
             },
           }),
         ]}
@@ -125,8 +126,8 @@ export default function RegistrationForm({ isVisible }) {
       </Form.Item>
 
       <Form.Item
-        name="confirm"
-        label="Confirm Password"
+        name='confirm'
+        label='Confirm Password'
         dependencies={['password']}
         hasFeedback
         rules={[
@@ -137,9 +138,9 @@ export default function RegistrationForm({ isVisible }) {
           ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue('password') === value) {
-                return Promise.resolve();
+                return Promise.resolve()
               }
-              return Promise.reject(new Error('The two passwords that you entered do not match!'));
+              return Promise.reject(new Error('The two passwords that you entered do not match!'))
             },
           }),
         ]}
@@ -148,8 +149,8 @@ export default function RegistrationForm({ isVisible }) {
       </Form.Item>
 
       <Form.Item
-        name="email"
-        label="E-mail"
+        name='email'
+        label='E-mail'
         rules={[
           {
             type: 'email',
@@ -165,10 +166,10 @@ export default function RegistrationForm({ isVisible }) {
       </Form.Item>
 
       <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
+        <Button type='primary' htmlType='submit'>
           Register
         </Button>
       </Form.Item>
     </Form>
-  );
-};
+  )
+}

@@ -16,13 +16,13 @@ export default function CartItem(item) {
   }
 
   return (
-    <div className="cart_wrapper">
+    <div className='cart_wrapper'>
       <div className='cart_item'>
-        <img src={image_url} alt="" />
-        <div className="description">
+        <img src={image_url} alt='' />
+        <div className='description'>
           <h4>{name}</h4>
         </div>
-        <div className="cart_button">
+        <div className='cart_button'>
           <button onClick={removeItemInCart} id={id}>Remove item</button>
         </div>
       </div>

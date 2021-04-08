@@ -1,4 +1,4 @@
-import { SET_BEER_NAME } from "../actions/actionTypes"
+import { SET_BEER_NAME } from '../actions/actionTypes'
 
 const initialState = {
   beerName: '',

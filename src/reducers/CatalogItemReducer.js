@@ -1,4 +1,4 @@
-import { SET_CART_ITEMS } from "../actions/actionTypes"
+import { SET_CART_ITEMS } from '../actions/actionTypes'
 
 const initialState = {
   cartItems: [],

@@ -1,4 +1,4 @@
-import { SET_API_DATA } from "../actions/actionTypes"
+import { SET_API_DATA } from '../actions/actionTypes'
 
 const initialState = {
   apiData: [],

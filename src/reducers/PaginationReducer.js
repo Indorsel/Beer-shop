@@ -1,4 +1,4 @@
-import { SET_CURRENT_PAGE } from "../actions/actionTypes"
+import { SET_CURRENT_PAGE } from '../actions/actionTypes'
 
 const initialState = {
   currentPage: 1,

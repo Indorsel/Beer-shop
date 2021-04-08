@@ -43,22 +43,22 @@ export default function CatalogItem({ item }) {
 
   return (
     <div className='wrapper_item' key={id}>
-      <img src={ image_url ? image_url : 'https://clck.ru/U9RrJ' } alt="" />
-      <div className="description">
+      <img src={ image_url ? image_url : 'https://clck.ru/U9RrJ' } alt='' />
+      <div className='description'>
         <h4>{name}</h4>
         <p><b>ABV: </b>{abv}</p>
-        <p><b>IBU: </b>{ibu}</p>
+        <p><b>IBU: </b>{ibu === null ? 0 : ibu}</p>
         <p><b>FG/OG: </b>{target_fg}/{target_og}</p>
         <p><b>EBC: </b>{ebc === null ? 0 : ebc}</p>
         <p><b>SRM: </b>{srm === null ? 0 : srm}</p>
         <p><b>Ph: </b>{ph}</p>
         <p><b>Attenuation level: </b>{attenuation_level}</p>
         <div className='checkbox_wrapper'>
-          <input type="checkbox" name="Add to cart" id={id} 
+          <input type='checkbox' name='Add to cart' id={id} 
             checked={ isCheckboxChecked() }
             onChange={ checked === false ? addItemInCart : removeItemInCart } 
           />
-          <label htmlFor="add_to_cart">Add to cart</label>
+          <label htmlFor='add_to_cart'>Add to cart</label>
         </div>
       </div>
     </div>

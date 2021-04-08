@@ -1,9 +1,9 @@
 import React from 'react'
 import './index.css'
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-import CartItem from '../CartItem/CartItem';
+import CartItem from '../CartItem/CartItem'
 
 export default function Cart() {
   const state = useSelector(state => state.catalogItem.cartItems)

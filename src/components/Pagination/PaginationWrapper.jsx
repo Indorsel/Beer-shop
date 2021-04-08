@@ -11,8 +11,8 @@ export default function PaginationWrapper() {
   const [current, setCurrent] = useState(1)
 
   const isCurrentPage = () => {
-    if((state.header.beerName !== '' && state.header.beerName.length >= 1 && state.pagination.currentPage === 1) 
-    || (state.header.beerName === '' && state.header.beerName.length === 0 && state.pagination.currentPage === 1)
+    if((state.header.beerName.length >= 1 && state.pagination.currentPage === 1) 
+    || (state.header.beerName.length === 0 && state.pagination.currentPage === 1)
     ) {
       return 1
     } else {
@@ -23,10 +23,10 @@ export default function PaginationWrapper() {
   const onChange = page => {
     setCurrent(page)
     dispatch(setCurrentPage(page))
-  };
+  }
 
   return (
-    <div className="pagination">
+    <div className='pagination'>
       <Pagination 
         showSizeChanger={false} 
         current={isCurrentPage()} 
