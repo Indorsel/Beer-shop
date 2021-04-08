@@ -14,7 +14,7 @@ export default function Main() {
   const dispatch = useDispatch()
   const state = useSelector(state => state)
   const {filter, header, catalogItem, pagination, main} = state
-  
+
   useEffect(() => {
     async function fetchData() {
       const request = header.beerName === '' ? await axios.get('beers?per_page=80') :
@@ -23,6 +23,7 @@ export default function Main() {
       dispatch(setApiData(sortedCatalog))
     }
     fetchData()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
