@@ -27,7 +27,6 @@ export default function Main() {
 
   useEffect(() => {
     async function fetchData() {
-      debugger
       const request = header.beerName === '' ? await axios.get('beers?per_page=80') :
         await axios.get(`beers?page=1&per_page=80&beer_name=${header.beerName}`)
       const sortedCatalog = catalogSort(request.data, filter.filter)
